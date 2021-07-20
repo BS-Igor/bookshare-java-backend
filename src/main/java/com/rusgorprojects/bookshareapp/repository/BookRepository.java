@@ -5,6 +5,7 @@ import com.rusgorprojects.bookshareapp.model.BookResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookRepository {
     //Verwaltung der Bücher
@@ -44,25 +45,20 @@ public class BookRepository {
         if (tags == null)
             return books;
         else {
-            tags = tags.toLowerCase();
-
-            List<BookResponse> filtered = new ArrayList<>();
-
-            for (BookResponse b : books) {
-
-                //toLowerCase-Methode
-                if (lowerCaseTags(b).contains(tags))
-                    filtered.add(b);
-            }
+            String lowercaseTag = tags.toLowerCase();
+            // ab Java8 gibt es dafür Stream-API
+            List<BookResponse> filtered;  //vom Stream zurück zur Liste umwandeln
+            filtered = books.stream()
+                    .filter(b -> lowercaseTags(b).contains(lowercaseTag))
+                    .collect(Collectors.toList());
             return filtered;
         }
     }
 
-    private List<String> lowerCaseTags(BookResponse b) {
-        List<String> lowercaseTags = new ArrayList<>();
-        for (String t : b.getTags()) {
-            lowercaseTags.add(t.toLowerCase());
-        }
-        return lowercaseTags;
+    private List<String> lowercaseTags(BookResponse b) {
+        List<String> tags = b.getTags();
+        return tags.stream()
+                   .map(tag -> tag.toLowerCase())
+                   .collect(Collectors.toList());
     }
 }
