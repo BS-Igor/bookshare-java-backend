@@ -31,7 +31,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Eine Minute für mich\",\r\n    \"description\": \"- ein sicheres Gefühl für innere Ruhe und Gleichgewicht - bessere Bezieh...\",\r\n    \"author\": \"Spencer Johnson\",\r\n    \"isbn\": \"3499601699\",\r\n    \"priceInCent\": 1200,\r\n    \"tags\": [\r\n        \"Ratgeber\",\r\n        \"Lebenshilfe\",\r\n        \"Fachlektüre\"\r\n    ]\r\n}"
+					"raw": "{\r\n    \"name\": \"Eine Minute für mich\",\r\n    \"description\": \"- ein sicheres Gefühl für innere Ruhe und Gleichgewicht - bessere Bezieh...\",\r\n    \"author\": \"Spencer Johnson\",\r\n    \"isbn\": \"3499601699\",\r\n    \"priceInCent\": 1200,\r\n    \"tags\": [\r\n        \"Ratgeber\",\r\n        \"Lebenshilfe\",\r\n        \"Fachlektüre\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "localhost:8080/api/books",
@@ -73,7 +78,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/books/1",
+					"raw": "localhost:8080/api/books/2a0ebca6-5db9-4c73-afba-cb13f9d66b83",
 					"host": [
 						"localhost"
 					],
@@ -81,6 +86,26 @@
 					"path": [
 						"api",
 						"books",
+						"2a0ebca6-5db9-4c73-afba-cb13f9d66b83"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
 						"1"
 					]
 				}
