@@ -2,9 +2,8 @@ package com.rusgorprojects.bookshareapp.model;
 
 import java.util.List;
 
-public class BookResponse {
+public class BookCreateRequest {
 
-    private final String id;
     private final String name;
     private final String description;
     private final String author;
@@ -12,8 +11,7 @@ public class BookResponse {
     private final Integer priceInCent;    // in EURO Cent
     private final List<String> tags;
 
-    public BookResponse(String id, String name, String description, String author, String isbn, Integer priceInCent, List<String> tags) {
-        this.id = id;
+    public BookCreateRequest(String name, String description, String author, String isbn, Integer priceInCent, List<String> tags) {
         this.name = name;
         this.description = description;
         this.author = author;
@@ -22,9 +20,6 @@ public class BookResponse {
         this.tags = tags;
     }
 
-    public String getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
