@@ -12,7 +12,11 @@ import java.util.*;
 @RestController
 public class BookController {
 
-    BookRepository bookRepository = new BookRepository();
+    private final BookRepository bookRepository;
+
+    public BookController(BookRepository bookRepository){
+        this.bookRepository = bookRepository;
+    }
 
     @GetMapping("/books")
     public List<BookResponse> getAllBooks(

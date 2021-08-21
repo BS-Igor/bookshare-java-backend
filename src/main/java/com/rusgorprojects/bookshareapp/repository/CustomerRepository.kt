@@ -1,7 +1,10 @@
 package com.rusgorprojects.bookshareapp.repository
 
 import com.rusgorprojects.bookshareapp.model.CustomerResponse
+import org.springframework.stereotype.Service
 import java.util.*
+
+@Service
 
 class CustomerRepository {
     //listof() ist eine Liste von Objekten

@@ -2,12 +2,14 @@ package com.rusgorprojects.bookshareapp.repository;
 
 import com.rusgorprojects.bookshareapp.model.BookCreateRequest;
 import com.rusgorprojects.bookshareapp.model.BookResponse;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 //In dieser Klasse entsteht die Programmlogik
 
+@Service
 public class BookRepository {
     //Verwaltung der Bücher
     //gib uns ein Buch, finde ein Buch

@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 //keine Data-Class, wie "CustomerResponse"
 // Controller, Repositories und Services sind die Klassen, die meine Logik enthalten
 
-class CustomerController {
-
-    //val ist final, unveränderbar
-
-    //kein "new" nötig für einen Konstruktoraufruf
-    val customerRepository: CustomerRepository = CustomerRepository()
+class CustomerController(
+        //val ist final, unveränderbar
+        //kein "new" nötig für einen Konstruktoraufruf
+        val customerRepository: CustomerRepository
+) {
 
     @GetMapping("/customers/{id}")
     //fun steht für function

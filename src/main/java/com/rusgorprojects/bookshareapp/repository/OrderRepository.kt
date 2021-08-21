@@ -3,9 +3,12 @@ package com.rusgorprojects.bookshareapp.repository
 import com.rusgorprojects.bookshareapp.model.OrderCreateRequest
 import com.rusgorprojects.bookshareapp.model.OrderResponse
 import com.rusgorprojects.bookshareapp.model.OrderStatus
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
+
+ @Service
 class OrderRepository {
 
     val orders = mutableListOf<OrderResponse>()

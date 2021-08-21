@@ -5,16 +5,18 @@ import com.rusgorprojects.bookshareapp.repository.BookRepository
 import com.rusgorprojects.bookshareapp.repository.CustomerRepository
 import com.rusgorprojects.bookshareapp.repository.OrderPositionRepository
 import com.rusgorprojects.bookshareapp.repository.OrderRepository
+import org.springframework.stereotype.Service
 import java.util.*
 
-class OrderService {
+@Service
+class OrderService (
 
-    val orderRepository = OrderRepository()
-    val orderPositionRepository = OrderPositionRepository()
-    val customerRepository = CustomerRepository()
-    val bookRepository = BookRepository()
+    val orderRepository: OrderRepository,
+    val orderPositionRepository: OrderPositionRepository,
+    val customerRepository: CustomerRepository,
+    val bookRepository: BookRepository
 
-
+) {
     fun createOrder(request: OrderCreateRequest): OrderResponse {
 
         val customer: CustomerResponse = customerRepository.findById(request.customerId)
