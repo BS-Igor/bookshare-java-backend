@@ -14,11 +14,11 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.3'
 
-	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6'
+	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'
 }
 
 test {
