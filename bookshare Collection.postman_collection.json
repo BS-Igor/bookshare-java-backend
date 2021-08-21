@@ -78,7 +78,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/books/2a0ebca6-5db9-4c73-afba-cb13f9d66b83",
+					"raw": "localhost:8080/api/books/3376d8c3-eb63-4932-b253-557d93209fb4",
 					"host": [
 						"localhost"
 					],
@@ -86,7 +86,7 @@
 					"path": [
 						"api",
 						"books",
-						"2a0ebca6-5db9-4c73-afba-cb13f9d66b83"
+						"3376d8c3-eb63-4932-b253-557d93209fb4"
 					]
 				}
 			},
@@ -107,6 +107,64 @@
 						"api",
 						"customers",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"customerId\" : \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Order Positions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"bookId\" : \"2\",\r\n \"quantity\" : 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/orders/38e3e09d-3ca5-4d62-a6db-8f078f6f7c2a/positions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"38e3e09d-3ca5-4d62-a6db-8f078f6f7c2a",
+						"positions"
 					]
 				}
 			},
