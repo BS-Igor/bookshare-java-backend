@@ -22,11 +22,7 @@ class OrderService (
 ) {
     fun createOrder(request: OrderCreateRequest): OrderResponse {
 
-        val customer: CustomerResponse = customerRepository.findById(request.customerId)
-                ?: throw BookshareException(
-                        message = "Customer with id ${request.customerId} not found",
-                        statusCode = HttpStatus.BAD_REQUEST)                    // "?:" Der so genannte Elvis Operator. Wenn vor dem Elvis Operator nicht null ist, dann gib es aus. Wenn es null ist, dann gib aus, was rechts vom Elvis Operator steht
-
+        customerRepository.findById(request.customerId)
         return orderRepository.save(request)
     }
 
@@ -47,6 +43,7 @@ class OrderService (
 
         val orderPositionResponse = OrderPositionResponse(
                 id = UUID.randomUUID().toString(),
+                orderId = orderId,
                 bookId = request.bookId,
                 quantity = request.quantity
         )

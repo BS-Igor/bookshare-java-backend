@@ -11,7 +11,7 @@ import java.util.*
  @Service
 class OrderRepository {
 
-    val orders = mutableListOf<OrderResponse>()
+    private val orders = mutableListOf<OrderResponse>()
 
     fun save(request: OrderCreateRequest): OrderResponse {
     val orderResponse = OrderResponse(
@@ -30,4 +30,8 @@ class OrderRepository {
         return orders.find { it.id == orderId }
     }
 
-}
+     fun findAllByCustomerIdWhereOrderStatusIsNew(customerId: String): List<OrderResponse> {
+         return orders.filter{ it.customerId == customerId && it.status == OrderStatus.NEW }
+     }
+
+ }

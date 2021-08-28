@@ -1,8 +1,9 @@
 package com.rusgorprojects.bookshareapp.controller
 
 import com.rusgorprojects.bookshareapp.model.CustomerResponse
+import com.rusgorprojects.bookshareapp.model.ShoppingCartResponse
 import com.rusgorprojects.bookshareapp.repository.CustomerRepository
-import org.springframework.http.ResponseEntity
+import com.rusgorprojects.bookshareapp.service.ShoppingCartService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
@@ -15,17 +16,20 @@ import org.springframework.web.bind.annotation.RestController
 class CustomerController(
         //val ist final, unveränderbar
         //kein "new" nötig für einen Konstruktoraufruf
-        val customerRepository: CustomerRepository
+        val customerRepository: CustomerRepository,
+        val shoppingCartService: ShoppingCartService
 ) {
 
     @GetMapping("/customers/{id}")
     //fun steht für function
-    fun getCustomerById(@PathVariable id:String):ResponseEntity<CustomerResponse>{
-         val customer =  customerRepository.findById(id)
-        //Kurzschreibweise falls
-        return if(customer != null)
-              ResponseEntity.ok(customer)
-            else
-                ResponseEntity.notFound().build()
+    fun getCustomerById(@PathVariable id: String): CustomerResponse {
+        return customerRepository.findById(id)
+    }
+
+    @GetMapping("/customers/{id}/shoppingcart")
+    fun getShoppingCartByCustomerId(
+            @PathVariable id: String
+    ): ShoppingCartResponse {
+        return shoppingCartService.getShoppingCartForCustomer(id)
     }
 }
