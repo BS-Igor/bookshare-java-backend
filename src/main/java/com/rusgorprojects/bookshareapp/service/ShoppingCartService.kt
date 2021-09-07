@@ -9,6 +9,7 @@ import com.rusgorprojects.bookshareapp.repository.BookRepository
 import com.rusgorprojects.bookshareapp.repository.OrderPositionRepository
 import com.rusgorprojects.bookshareapp.repository.OrderRepository
 import org.springframework.stereotype.Service
+import java.lang.IllegalArgumentException
 
 @Service
 class ShoppingCartService(
@@ -37,7 +38,7 @@ class ShoppingCartService(
         )
     }
 
-    private fun calculateSumForCart(
+    fun calculateSumForCart(    //"privat" für das Testing entfernt
             orderPositions: List<OrderPositionResponse>,
             deliveryCost: Long
     ): Long {
@@ -45,8 +46,9 @@ class ShoppingCartService(
             val book: BookResponse = bookRepository
                     .findById(it.bookId)
                     .orElseThrow {
-                        throw IdNotFoundException("Book with id ${it.bookId} not found")
-                    }
+                        throw IdNotFoundException("Book with id ${it.bookId} not found")}
+            if(it.quantity <= 0)
+                throw IllegalArgumentException("OrderPosition with quantity of ${it.quantity} is not allowed.")
             it.quantity * book.priceInCent
         }
         val positionSum = positionAmounts.sumBy { it.toInt() }
