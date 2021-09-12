@@ -1,9 +1,7 @@
 package com.rusgorprojects.bookshareapp.service;
 
 import com.rusgorprojects.bookshareapp.exceptions.IdNotFoundException;
-import com.rusgorprojects.bookshareapp.model.BookCreateRequest;
-import com.rusgorprojects.bookshareapp.model.BookResponse;
-import com.rusgorprojects.bookshareapp.model.OrderPositionResponse;
+import com.rusgorprojects.bookshareapp.model.*;
 import com.rusgorprojects.bookshareapp.repository.BookRepository;
 import com.rusgorprojects.bookshareapp.repository.OrderPositionRepository;
 import com.rusgorprojects.bookshareapp.repository.OrderRepository;
@@ -12,24 +10,33 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 public class ShoppingCartServiceTest {
 
     private BookRepository bookRepository;
-    ShoppingCartService service;
+    private ShoppingCartService service;
 
+    class OrderRepositoryMock extends OrderRepository{
+    //save() und findById() überschreiben
+        public OrderResponse save(OrderCreateRequest request){
+            return null;
+        }
+    }
         @BeforeEach
         public void setupTests(){
 
-            bookRepository = new BookRepository();
+        bookRepository = mock(BookRepository.class);
             service = new ShoppingCartService(
-                    new OrderRepository(),
-                    new OrderPositionRepository(),
+                    mock(OrderRepository.class),
+                    mock(OrderPositionRepository.class),
                     bookRepository
             );
 
@@ -52,7 +59,18 @@ public class ShoppingCartServiceTest {
     @Test
     public void testThat_calculateSumWithOneBook_sumsPriceOfBook(){
         // given
-        BookResponse savedBook = saveBook(1000);
+        BookResponse savedBook = new BookResponse(
+                UUID.randomUUID().toString(),
+                "Neues Buch",
+                "Beschreibung",
+                "Ein Author",
+                "isbrn-681894 68181",
+                1000,
+                new ArrayList<>()
+        );
+
+        //Definition des Verhaltens des Mocks
+        given(bookRepository.findById(savedBook.getId())).willReturn(Optional.of(savedBook));
 
         List<OrderPositionResponse> orderPositions = new ArrayList<>();
         addOrderPosition( orderPositions,savedBook,1);
@@ -67,8 +85,29 @@ public class ShoppingCartServiceTest {
     @Test
     public void testThat_calculateSumWithTwoBooks_sumsPricesOfBook(){
         // given
-        BookResponse savedBook1 = saveBook(1000);
-        BookResponse savedBook2 = saveBook(2000);
+        BookResponse savedBook1 = new BookResponse(
+                UUID.randomUUID().toString(),
+                "Neues Buch",
+                "Beschreibung",
+                "Ein Author",
+                "isbrn-681894 68181",
+                1000,
+                new ArrayList<>()
+        );
+        //Definition des Verhaltens des Mocks
+        given(bookRepository.findById(savedBook1.getId())).willReturn(Optional.of(savedBook1));
+
+        BookResponse savedBook2 = new BookResponse(
+                UUID.randomUUID().toString(),
+                "Neues Buch",
+                "Beschreibung",
+                "Ein Author",
+                "isbrn-681894 68181",
+                2000,
+                new ArrayList<>()
+        );
+        //Definition des Verhaltens des Mocks
+        given(bookRepository.findById(savedBook2.getId())).willReturn(Optional.of(savedBook2));
 
         List<OrderPositionResponse> orderPositions = new ArrayList<>();
         addOrderPosition( orderPositions,savedBook1,1);
@@ -84,8 +123,29 @@ public class ShoppingCartServiceTest {
     @Test
     public void testThat_calculateSumWithNegativeQuantity_throwsException(){
         // given
-        BookResponse savedBook1 = saveBook(1000);
-        BookResponse savedBook2 = saveBook(2000);
+        BookResponse savedBook1 = new BookResponse(
+                UUID.randomUUID().toString(),
+                "Neues Buch",
+                "Beschreibung",
+                "Ein Author",
+                "isbrn-681894 68181",
+                1000,
+                new ArrayList<>()
+        );
+        //Definition des Verhaltens des Mocks/der Attrappe
+        given(bookRepository.findById(savedBook1.getId())).willReturn(Optional.of(savedBook1));
+
+        BookResponse savedBook2 = new BookResponse(
+                UUID.randomUUID().toString(),
+                "Neues Buch",
+                "Beschreibung",
+                "Ein Author",
+                "isbrn-681894 68181",
+                2000,
+                new ArrayList<>()
+        );
+        //Definition des Verhaltens des Mocks/der Attrappe
+        given(bookRepository.findById(savedBook2.getId())).willReturn(Optional.of(savedBook2));
 
         List<OrderPositionResponse> orderPositions = new ArrayList<>();
         addOrderPosition( orderPositions,savedBook1,1);
@@ -123,19 +183,6 @@ public class ShoppingCartServiceTest {
                         quantity
                 )
         );
-    }
-
-    private BookResponse saveBook(int price) {
-        BookResponse savedBook = bookRepository.save(
-                new BookCreateRequest(
-                        "Neues Buch",
-                        "Beschreibung",
-                        "Ein Author",
-                        "isbrn-681894 68181",
-                        price,
-                        new ArrayList<>())
-        );
-        return savedBook;
     }
 
 }

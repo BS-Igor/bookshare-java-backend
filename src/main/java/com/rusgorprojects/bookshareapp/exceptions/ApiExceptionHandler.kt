@@ -19,8 +19,8 @@ class ApiExceptionHandler {
         println(exception)
 
         val (code, message) = when(exception) {
+            is IdNotFoundException -> HttpStatus.BAD_REQUEST to exception.message
             is BookshareException -> exception.statusCode to exception.message
-            is IdNotFoundException -> HttpStatus.BAD_REQUEST to exception.message // spezifische Exception hier einfach hinzufügen
             is IllegalArgumentException -> HttpStatus.BAD_REQUEST to (exception.message ?: "Illegal Argument")
             else -> HttpStatus.INTERNAL_SERVER_ERROR to (exception.message ?: "An errror occured")
         }
