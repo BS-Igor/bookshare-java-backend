@@ -82,16 +82,7 @@ public BookRepository(){
                 .collect(Collectors.toList());
     }
 
-    public BookResponse save(BookCreateRequest request) {
-        BookResponse response = new BookResponse(
-                UUID.randomUUID().toString(),
-                request.getName(),
-                request.getDescription(),
-                request.getAuthor(),
-                request.getIsbn(),
-                request.getPriceInCent(),
-                request.getTags()
-        );
+    public BookResponse save(BookResponse response) {
         books.add(response);
         return response;
     }
