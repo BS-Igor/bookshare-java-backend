@@ -13,14 +13,8 @@ class OrderRepository {
 
     private val orders = mutableListOf<OrderResponse>()
 
-    fun save(request: OrderCreateRequest): OrderResponse {
-    val orderResponse = OrderResponse(
-            id = UUID.randomUUID().toString(),
-            customerId = request.customerId,
-            orderTime = LocalDateTime.now(),
-            status = OrderStatus.NEW,
-            orderPositions = emptyList()
-    )
+    fun save(orderResponse: OrderResponse): OrderResponse {
+
         //in Kotlin versucht man immutable zu programmieren
         orders.add(orderResponse)
         return orderResponse

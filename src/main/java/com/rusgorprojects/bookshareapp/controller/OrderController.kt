@@ -4,12 +4,10 @@ import com.rusgorprojects.bookshareapp.exceptions.BookshareException
 import com.rusgorprojects.bookshareapp.model.OrderCreateRequest
 import com.rusgorprojects.bookshareapp.model.OrderPositionCreateRequest
 import com.rusgorprojects.bookshareapp.model.OrderResponse
+import com.rusgorprojects.bookshareapp.model.OrderUpdateRequest
 import com.rusgorprojects.bookshareapp.service.OrderService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class OrderController(
@@ -30,5 +28,13 @@ class OrderController(
             @RequestBody request: OrderPositionCreateRequest
     ) {
         orderService.createNewPositionForOrder(orderId, request)
+    }
+
+    @PutMapping("/orders/{id}")
+    fun updateOrder(
+            @PathVariable id: String,
+            @RequestBody request: OrderUpdateRequest
+    ){
+        orderService.updateOrder(id, request)
     }
 }
